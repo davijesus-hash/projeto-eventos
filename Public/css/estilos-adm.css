@@ -83,3 +83,96 @@ body {
 input, button{
   font: inherit;
 }
+
+.admin-cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: linear-gradient(100deg, #0F4A69, #174E70, #2379A5);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .12);
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 14px 24px;
+}
+
+.admin-cabecalho-superior,
+.admin-cabecalho-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-logo img {
+    width: 150px;
+    max-height: 58px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.admin-logo strong {
+    font-size: 20px;
+}
+
+.admin-usuario {
+    font-size: 14px;
+    opacity: .9;
+}
+
+.admin-titulo {
+    margin: 8px 0 0;
+    font-size: 18px;
+}
+
+.admin-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.admin-menu a {
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+.admin-menu a:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.footer {
+    background: #fff;
+    border-top: 1px solid #DDDDDD;
+    padding: 24px;
+    color: #666666;
+    font-size: 14px;
+}
+
+.footer-texto {
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+}
+
+input,
+button,
+textarea {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+} 

@@ -108,7 +108,7 @@ app.post('/login', async (req, res) => {
 
         // Grava o usuário na sessão antes de ir pro admin/dashboard
         req.session.usuario = resultado.rows[0];
-        res.redirect('/admin');
+        res.redirect('/dashboard');
 
     } catch (erro) {
         console.log('Erro: ' + erro);
@@ -116,81 +116,90 @@ app.post('/login', async (req, res) => {
     }
 });
 
-//Dashboard
-app.get("/dashboard", async (req, res) => {
-
+app.get('/dashboard', exigirLogin, async (req, res) => {
     try {
-
         const totalEventos = await BD.query(`
-            select count(*) as total 
-            from eventos
-        `)
-
-        const totalParticipantes = await BD(`
-            select count(*) as total
-            from participantes
+            SELECT COUNT(*) AS total
+            FROM eventos
         `);
 
-        const totalIncricoes = await BD.query(`
-            select count(*) as total
-            from Incricoes
+        const totalParticipantes = await BD.query(`
+            SELECT COUNT(*) AS total
+            FROM participantes
+        `);
+
+        const totalInscricoes = await BD.query(`
+            SELECT COUNT(*) AS total
+            FROM inscricoes
         `);
 
         const usuariosAtivos = await BD.query(`
-            select count(*) as total
-            from usuarios where situacao = 1   
-        ,`);
+            SELECT COUNT(*) AS total
+            FROM usuarios
+            WHERE situacao = 1
+        `);
 
         const inscricaoStatus = await BD.query(`
-        select 
-            status, 
-            count(*) as total
-        from incricoes
-        group by status
-        order by status
+            SELECT
+                status,
+                COUNT(*) AS total
+            FROM inscricoes
+            GROUP BY status
+            ORDER BY status
         `);
 
-        const eventosMaisInscricao = await 
-        BD.query(`
-            select
+        const eventosCategoria = await BD.query(`
+            SELECT
+                c.nome AS categoria,
+                COUNT(e.id) AS total
+            FROM categorias c
+            LEFT JOIN eventos e
+                ON e.categoria_id = c.id
+            GROUP BY c.id, c.nome
+            ORDER BY c.id, c.nome
+        `);
+
+        const eventosMaisInscricoes = await BD.query(`
+            SELECT
                 e.titulo,
-                count(i.id) as total
-            from eventos e
-            left join inscricoes i
-                on i.evento_id = e.id4
-            group by e.id, e.titulo
-            order by total desc limit 5`);
-
-        const proximoEventos = await BD.query(`
-        select 
-            e.titulo,
-            count(i.id) as total
-        from eventos e 
-        left join inscricoes i
-            on i.evento_id = e.id
-        group by e.id, e.titulo
-        order by total desc limit 5
+                COUNT(i.id) AS total
+            FROM eventos e
+            LEFT JOIN inscricoes i
+                ON i.evento_id = e.id
+            GROUP BY e.id, e.titulo
+            ORDER BY total DESC
+            LIMIT 5
         `);
-        
+
+        const proximosEventos = await BD.query(`
+            SELECT
+                id,
+                titulo,
+                data_evento,
+                horario,
+                local
+            FROM eventos
+            WHERE data_evento >= CURRENT_DATE
+            ORDER BY data_evento, horario
+            LIMIT 5
+        `);
+
         res.render('dashboard', {
             usuario: req.session.usuario,
-            totalEventos: 
-                totalEventos.rows[0].total,
-            totalParticipantes:
-                totalParticipantes.rows[0].total,
-            totalIncricoes:
-                totalIncricoes.rows[0].total,
-            usuariosAtivos:
-                usuariosAtivos.rows[0].total,
-            inscricaoStatus:
-                inscricaoStatus.rows[0].total,
+            totalEventos: totalEventos.rows[0].total,
+            totalParticipantes: totalParticipantes.rows[0].total,
+            totalInscricoes: totalInscricoes.rows[0].total,
+            usuariosAtivos: usuariosAtivos.rows[0].total,
+            inscricaoStatus: inscricaoStatus.rows,
+            eventosCategoria: eventosCategoria.rows,
+            eventosMaisInscricoes: eventosMaisInscricoes.rows,
+            proximosEventos: proximosEventos.rows
         });
 
-
-    }catch (erro) {
-        console.log('Erro: ' + erro)
+    } catch (erro) {
+        console.error('Erro no dashboard:', erro);
+        res.status(500).send('Erro ao carregar o dashboard!');
     }
-
 });
 
 

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Eventos - <%=titulo%>
+    </title>
+    <link rel="stylesheet" href="/css/estilos-adm.css">
+</head>
+<body>
+    <header class="admin-cabecalho">
+  <div class="admin-container">
+    <div class="admin-cabecalho-superior">
+      <a class="admin-logo" href="/dashboard">
+        <img src="/img/landing/logo.png" alt="Conecta Eventos">
+      </a>
+      <% if (typeof usuario !== 'undefined' && usuario && usuario.nome) { %>
+        <div class="admin-usuario">Bem-vindo, 
+          <strong>
+            <%= usuario.nome %>
+          </strong>
+        </div>
+      <% } %>
+    </div>
+    <div class="admin-cabecalho-inferior">
+      <h2 class="admin-titulo">
+        <%= titulo %>
+      </h2>
+      <nav class="admin-menu" aria-label="Navegação administrativa">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/categorias">Categorias</a>
+        <a href="/eventos">Eventos</a>
+        <a href="/usuarios">Usuários</a>
+        <a href="/logout">Sair</a>
+      </nav>
+    </div>
+  </div>
+</header>

@@ -131,7 +131,7 @@ img {
 
 .hero-botoes .botao-transparente {
     background-color: transparent;
-    border: 2px solid #ffffff;
+    border: px solid #ffffff;
     color: #ffffff;
 }
 
@@ -192,6 +192,40 @@ img {
     color: #174e70;
     margin-bottom: 12px;
     font-size: 1.3rem;
+}
+
+.cards-institucionais {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.card-institucional {
+    flex: 1;
+    background-color: #f5f7f8;
+    padding: 30px 25px;
+    border-radius: 12px;
+    border-left: 4px solid #2379a5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-institucional:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-institucional h3 {
+    color: #174e70;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.card-institucional p {
+    color: #666666;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* Seção Eventos */

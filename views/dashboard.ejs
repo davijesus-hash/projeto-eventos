@@ -1,4 +1,10 @@
-+h1>Dashboard</h1>
+<%-include('includes/header', {
+    titulo:"Painel Administrativo",
+    usuario
+}) %>
+
+
+<h1>Dashboard</h1>
 <p>
     Usuário:
     <strong>
@@ -17,8 +23,8 @@
     </strong>
 </p>
 <p>Inscrições:
-   <strong>
-        <%=totalinscricoes%>
+    <strong>
+        <%=totalInscricoes%>
     </strong>
 </p>
 <p>Usuários Ativos:
@@ -29,7 +35,7 @@
 <h2>Próximos Eventos</h2>
 <table border="1">
     <tr>
-        <th>EVentos</th>
+        <th>Eventos</th>
         <th>Data</th>
         <th>Horário</th>
         <th>Local</th>
@@ -60,3 +66,5 @@
         </li>
         <%})%>
 </ol>
+
+<%- include('includes/footer')%>
