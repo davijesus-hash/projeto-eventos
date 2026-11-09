@@ -47,6 +47,7 @@ $RECYCLE.BIN/
 *.pem
 *.key
 *.cert
+db.js
 
 # ==========================================
 # Packages & Dependencies (Common)

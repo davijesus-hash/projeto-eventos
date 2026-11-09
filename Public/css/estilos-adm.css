@@ -11,6 +11,20 @@ body {
   line-height: 1.5;
 }
 
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================================
+   PÁGINA DE LOGIN
+   ========================================== */
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -64,27 +78,9 @@ body {
   box-shadow: 0 0 0 2px #8EC7DF;
 }
 
-.btn {
-  border: 0;
-  border-radius: 8px;
-  padding: 10px 16px;
-  cursor: pointer;
-}
-
-.btn-primario {
-  background: #2379A5;
-  color: #fff;
-}
-
-.btn-primario:hover {
-  background: #174E70;
-}
-
-input,
-button {
-  font: inherit;
-}
-
+/* ==========================================
+   CABEÇALHO ADMIN
+   ========================================== */
 .admin-cabecalho {
   position: sticky;
   top: 0;
@@ -102,26 +98,26 @@ button {
 
 .admin-cabecalho-superior,
 .admin-cabecalho-inferior {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .admin-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .admin-logo img {
-    width: 150px;
-    max-height: 58px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
+  width: 150px;
+  max-height: 58px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
-.admin-logo strong{
+.admin-logo strong {
   font-size: 20px;
 }
 
@@ -130,6 +126,198 @@ button {
   opacity: .9;
 }
 
+.admin-titulo {
+  margin: 8px 0 0;
+  font-size: 18px;
+}
+
+.admin-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.admin-menu a {
+  padding: 7px 10px;
+  border-radius: 7px;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+.admin-menu a:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* ==========================================
+   CONTEÚDO PRINCIPAL & CABEÇALHO
+   ========================================== */
+.conteudo {
+  min-height: 70vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 70px;
+}
+
+.cabecalho-conteudo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.cabecalho-conteudo h1 {
+  font-size: 30px;
+  color: #174E70;
+  margin: 0 0 6px;
+}
+
+.cabecalho-conteudo p {
+  margin: 0;
+  color: #666666;
+}
+
+/* ==========================================
+   TABELAS
+   ========================================== */
+.tabela-container {
+  background: #fff;
+  border: 1px solid #DDDDDD;
+  border-radius: 12px;
+  overflow: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, .06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #EEEEEE;
+  vertical-align: middle;
+}
+
+th {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  background: #EEF2F4;
+  color: #174E70;
+}
+
+tbody tr:hover {
+  background: #fafcfd;
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ==========================================
+   CARDS & FORMULÁRIOS
+   ========================================== */
+.card {
+  background: #fff;
+  border: 1px solid #DDDDDD;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+  padding: 24px;
+}
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.campo-formulario.grow {
+  flex: 1;
+  min-width: 220px;
+}
+
+.campo-formulario label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #333333;
+}
+
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #CCCCCC;
+  border-radius: 7px;
+  background: #fff;
+  outline: none;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+  border-color: #2379A5;
+  box-shadow: 0 0 0 2px #8EC7DF;
+}
+
+.campo-formulario textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.botoes-formulario {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+/* ==========================================
+   BOTÕES E VARIANTES
+   ========================================== */
+.btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primario {
+  background: #2379A5;
+  color: #fff;
+}
+
+.btn-primario:hover {
+  background: #174E70;
+}
+
+.btn-muted {
+  background: #777;
+  color: #fff;
+}
+
+.btn-muted:hover {
+  background: #555;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ==========================================
+   RODAPÉ
+   ========================================== */
 .footer {
   background: #fff;
   border-top: 1px solid #DDDDDD;
@@ -142,96 +330,4 @@ button {
   max-width: 1200px;
   margin: auto;
   text-align: center;
-}
-
-input,
-button,
-textarea {
-    font: inherit;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.conteudo {
-  min-height: 70px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px 70px;
-}
-
-.cabecalho-conteudo {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.cabecalho-conteudo h1 {
-    font-size: 30px;
-    color: #174E70;
-    margin: 0 0 6px;
-}
-
-.cabecalho-conteudo p {
-    margin: 0;
-    color: #666666;
-}
-
-.btn {
-    border: 0;
-    border-radius: 8px;
-    padding: 10px 16px;
-    cursor: pointer;
-}
-
-.btn-primario {
-    background: #2379A5;
-    color: #fff;
-}
-
-.btn-primario:hover {
-    background: #174E70;
-}
-
-.tabela-container {
-    background: #fff;
-    border: 1px solid #DDDDDD;
-    border-radius: 12px;
-    overflow: auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, .06);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 820px;
-}
-
-th,
-td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid #EEEEEE;
-    vertical-align: middle;
-}
-
-th {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: .03em;
-    background: #EEF2F4;
-    color: #174E70;
-}
-
-tbody tr:hover {
-    background: #fafcfd;
-}
-
-.acoes {
-    display: flex;
-    gap: 8px;
 }

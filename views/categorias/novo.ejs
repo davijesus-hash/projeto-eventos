@@ -1,0 +1,46 @@
+<%- include('../includes/header', { titulo: "Cadastrar Categorias", usuario }) %>
+
+<main class="conteudo">
+    <div class="cabecalho-conteudo">
+        <div>
+            <h1>Cadastrar categoria</h1>
+            <p>Crie uma categoria para organizar os eventos.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <form action="/categorias/novo" method="POST">
+            <div class="campo-formulario">
+                <label for="nome">Nome</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Ex.: Tecnologia"
+                    required
+                    maxlength="80"
+                    minlength="3"
+                >
+            </div>
+
+            <div class="campo-formulario" style="margin-top:16px">
+                <label for="descricao">Descrição</label>
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                    placeholder="Descrição da categoria"
+                    maxlength="255"
+                ></textarea>
+            </div>
+
+            <div class="botoes-formulario">
+                <a class="btn btn-muted" href="/categorias">
+                    Cancelar
+                </a>
+                <button class="btn btn-primario" type="submit">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
