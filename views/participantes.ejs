@@ -1,0 +1,10 @@
+<h1>Lista de Participantes</h1>
+<a href="/admin">Voltar para Home</a>
+
+<ul>
+<% participantes.forEach(p => { %>
+<li>
+<strong><%= p.nome %></strong> - Email: <%= p.email %> | Tel: <%= p.telefone %>
+</li>
+<% }) %>
+</ul>

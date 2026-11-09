@@ -1,0 +1,24 @@
+<h1>Painel Administrativo</h1>
+<p>
+    Bem-Vindo, <strong>
+        <%=usuario.nome%>
+    </strong>
+</p>
+<p>
+    <%=usuario.email%>
+</p>
+<p>Selecione uma opção:</p>
+<ul>
+    <li><a href="/eventos">Eventos</a></li>
+    <li><a href="/categorias">Categorias</a></li>
+    <li><a href="/participantes">Participantes</a></li>
+    <li><a href="/inscricoes">Inscrições</a></li>
+    <li><a href="/usuarios">Usuários</a></li>
+    <p>
+        Bem-Vindo, <strong>
+            <%= typeof usuario !=='undefined' && usuario ? usuario.nome : 'Usuário' %>
+        </strong>
+    </p>
+</ul>
+<br><br>
+<a href="/logout">Sair</a>

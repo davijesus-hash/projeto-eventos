@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConectaEventos</title>
+    <link rel="stylesheet" href="css/estilos-adm.css">
+</head>
+
+<body class="login-page">
+    <main class="login-card">
+        <img class="login-logo" src="/img/landing/logo.png" alt="Conecta Eventos">
+        <p>Informe seus dados para acessar o sistema.</p>
+
+        <form action="/login" method="POST">
+            <div class="form-campos">
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" placeholder="Digite o seu email" required>
+            </div>
+
+            <div class="form-campos">
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" placeholder="Digite a sua senha" required>
+            </div>
+
+            <button type="submit" class="btn btn-primario" style="width: 100%; margin-top: 10px;">Entrar</button>
+        </form>
+
+        <% if(erro!=null){%>
+            <p style="color: #ff0000;">
+                <%= erro %>
+            </p>
+            <%}%>
+    </main>
+</body>
+
+</html>

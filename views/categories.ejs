@@ -1,0 +1,11 @@
+<h1>Lista de Categorias</h1>
+
+<a href="/admin">Voltar para Home</a>
+
+<ul>
+<% categorias.forEach(categorias => { %>
+<li>
+<strong><%= categorias.nome %></strong>: <%= categorias.descricao %>
+</li>
+<% }) %>
+</ul>

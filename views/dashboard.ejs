@@ -1,0 +1,62 @@
++h1>Dashboard</h1>
+<p>
+    Usuário:
+    <strong>
+        <%= usuario.nome %>
+    </strong>
+</p>
+<a href="/admin">Voltar</a>
+<hr>
+<h2>Indicadores</h2>
+<p>Eventos: <strong>
+        <%=totalEventos %>
+    </strong></p>
+<p>Participantes:
+    <strong>
+        <%=totalParticipantes%>
+    </strong>
+</p>
+<p>Inscrições:
+   <strong>
+        <%=totalinscricoes%>
+    </strong>
+</p>
+<p>Usuários Ativos:
+    <strong>
+        <%=usuariosAtivos%>
+    </strong>
+</p>
+<h2>Próximos Eventos</h2>
+<table border="1">
+    <tr>
+        <th>EVentos</th>
+        <th>Data</th>
+        <th>Horário</th>
+        <th>Local</th>
+    </tr>
+    <% proximosEventos.forEach(evento=> {%>
+        <tr>
+            <td>
+                <%=evento.titulo%>
+            </td>
+            <td>
+                <%=evento.data_evento%>
+            </td>
+            <td>
+                <%=evento.horario%>
+            </td>
+            <td>
+                <%=evento.local%>
+            </td>
+        </tr>
+        <% })%>
+</table>
+<h2>Eventos com mais Inscrições</h2>
+<ol>
+    <% eventosMaisInscricoes.forEach(evento=> {%>
+        <li>
+            <%=evento.titulo%>
+            <%=evento.total%>
+        </li>
+        <%})%>
+</ol>

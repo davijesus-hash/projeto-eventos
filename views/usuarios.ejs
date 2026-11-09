@@ -1,0 +1,10 @@
+<h1>Lista de Usuarios</h1>
+<a href="/admin">Voltar para Home</a>
+
+<ul>
+<% usuarios.forEach(p => { %>
+<li>
+<strong><%= u.nome %></strong> - Email: <%= u.email %> | Senha: <%= u.senha %>
+</li>
+<% }) %>
+</ul>
