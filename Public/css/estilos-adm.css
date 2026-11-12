@@ -331,3 +331,21 @@ tbody tr:hover {
   margin: auto;
   text-align: center;
 }
+
+.status {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-ativo {
+  background-color: #dcfce7;
+  color: #166532;
+}
+
+.status-inativo {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}

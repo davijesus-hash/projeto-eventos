@@ -2,93 +2,208 @@ const express = require('express');
 const router = express.Router();
 const BD = require('../db');
 
-//Read - Leitura
 
-router.get('/', async(req, res) => {
+// ============================================
+// LISTAR USUÁRIOS
+// ============================================
+
+router.get('/', async (req, res) => {
     try {
-        const resultado = await BD.query('select * from usuarios');
+        const resultado = await BD.query(`
+            SELECT
+                id,
+                nome,
+                email,
+                situacao,
+                criado_em
+            FROM usuarios
+            ORDER BY nome
+        `); 
+        console.log(resultado.rows)
         res.render('usuarios/index', {
-            usuarios: resultado.rows
+            usuarios: resultado.rows,
+            usuario: req.session.usuario
         });
-    } catch(error) {
-        console.log(`Erro: ${error}`);
     }
+    catch (erro) {
+        console.log('Erro ao listar usuários: ' + erro);
+        res.status(500).send(
+            'Erro ao carregar usuários'
+        ).render('usuarios/index', {
+            usuarios: [],
+            usuario: req.session.usuario
+        }); 
+    }
+
 });
 
-//CREATE
+
+// ============================================
+// ABRIR TELA NOVO USUÁRIO
+// ============================================
 
 router.get('/novo', (req, res) => {
-    try {
-        res.render('usuarios/novo');
-    } catch(error) {
-        console.log('Erro: ' + error);
-    }
+    res.render('usuarios/novo', { usuario: req.session.usuario });
+
 });
 
-router.post('/novo', async(req, res) => {
+
+// ============================================
+// CADASTRAR USUÁRIO
+// ============================================
+
+router.post('/novo', async (req, res) => {
+
+    const {
+        nome,
+        email,
+        senha,
+        situacao
+    } = req.body;
+
     try {
-        const { nome, email, senha, situacao } = req.body;
-        await BD.query(
-            `insert into usuarios 
-            (nome, email, senha, situacao) 
-            values ($1, $2, $3, $4)`,
-            [nome, email, senha, situacao]
-        );
+
+        await BD.query(`
+            INSERT INTO usuarios
+            (
+                nome,
+                email,
+                senha,
+                situacao
+            )
+            VALUES
+            (
+                $1,
+                $2,
+                $3,
+                $4
+            )
+        `,
+        [
+            nome,
+            email,
+            senha,
+            situacao
+        ]);
+
         res.redirect('/usuarios');
-    } catch(error) {
-        console.log('Erro: ' + error);
+
     }
+    catch (erro) {
+
+        console.log(
+            'Erro ao cadastrar usuário: ' + erro
+        );
+
+        res.status(500).send(
+            'Erro ao cadastrar usuário'
+        );
+
+    }
+
 });
 
-//Update
 
-router.get('/editar/:id', async(req, res) => {
+// ============================================
+// ABRIR TELA EDITAR
+// ============================================
+
+router.get('/editar/:id', async (req, res) => {
+
+    const id = req.params.id;
+
     try {
-        const id = req.params.id;
-        const resultado = await BD.query(
-            `select * from usuarios where id = $1`,
-            [id]
-        );
+
+        const resultado = await BD.query(`
+            SELECT *
+            FROM usuarios
+            WHERE id = $1
+        `,
+        [
+            id
+        ]);
+        if (resultado.rows.length === 0) {
+            return res.status(404).send(
+                'Usuário não encontrado'
+            );
+
+        }
         res.render('usuarios/editar', {
-            usuarios: resultado.rows
+            usuarioEditado: resultado.rows[0],
+            usuario: req.session.usuario
         });
-    } catch(error) {
-        console.log(`Erro: ${error}`);
     }
-});
-
-router.post('/editar/:id', async(req, res) => {
-    try {
-        const id = req.params.id;
-        const { nome, email, senha, situacao } = req.body;
-        await BD.query(
-            `update usuarios set 
-            nome = $1, 
-            email = $2, 
-            senha = $3, 
-            situacao = $4 
-            where id = $5`,
-            [nome, email, senha, situacao, id]
+    catch (erro) {
+        console.log(
+            'Erro ao carregar usuário: ' + erro
         );
-        res.redirect('/usuarios');
-    } catch(error) {
-        console.log(`Erro: ${error}`);
-    }
-});
-
-//Delete
-
-router.post('/excluir/:id', async(req, res) => {
-    try {
-        const id = req.params.id;
-        await BD.query(
-            `delete from usuarios where id = $1`,
-            [id]
+        res.status(500).send(
+            'Erro ao carregar usuário'
         );
-        res.redirect('/usuarios');
-    } catch(error) {
-        console.log(`Erro: ${error}`);
     }
 });
 
+// ============================================
+// ATUALIZAR USUÁRIO
+// ============================================
+router.post('/editar/:id', async (req, res) => {
+    const id = req.params.id;
+    const {
+        nome,
+        email,
+        senha,
+        situacao
+    } = req.body;
+    try {
+        await BD.query(`
+            UPDATE usuarios
+            SET
+                nome = $1,
+                email = $2,
+                senha = $3,
+                situacao = $4
+            WHERE id = $5
+        `,
+        [
+            nome,
+            email,
+            senha,
+            situacao,
+            id
+        ]);
+        res.redirect('/usuarios');
+    }
+    catch (erro) {
+        console.log(
+            'Erro ao atualizar usuário: ' + erro
+        );
+        res.status(500).send(
+            'Erro ao atualizar usuário'
+        );
+    }
+});
+// ============================================
+// EXCLUIR USUÁRIO
+// ============================================
+router.post('/excluir/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await BD.query(`
+            DELETE FROM usuarios
+            WHERE id = $1
+        `,
+        [
+            id
+        ]);
+        res.redirect('/usuarios');
+    }
+    catch (erro) {
+        console.log(
+            'Erro ao excluir usuário: ' + erro
+        );
+        res.status(500).send(
+            'Erro ao excluir usuário'
+        );
+    }
+});
 module.exports = router;
