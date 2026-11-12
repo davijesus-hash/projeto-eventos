@@ -509,3 +509,44 @@ tbody tr:hover {
   font-size: 13px;
   font-weight: 700;
 }
+
+.barra-filtros {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.campo-pesquisa {
+  flex: 1 1 240px;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 0;
+}
+
+.campo-ordenacao {
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.paginacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* INFORMAÇÕES DA PAGINAÇÃO */
+.paginacao-info {
+  font-size: 14px;
+  color: #555555;
+}

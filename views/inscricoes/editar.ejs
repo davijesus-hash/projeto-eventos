@@ -1,0 +1,60 @@
+<%- include('../includes/header', { titulo: 'Editar Inscrição', usuario }) %>
+<main class="conteudo">
+    <div class="cabecalho-conteudo">
+        <div>
+            <h1>Editar Inscrição</h1>
+            <p>Atualize os dados da inscrição.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <form action="/inscricoes/editar/<%= inscricao.id %>" method="POST">
+            <div class="campo-formulario">
+                <label for="participante_id">Participante</label>
+                <select id="participante_id" name="participante_id" required>
+                    <% participantes.forEach(participante => { %>
+                        <option value="<%= participante.id %>"
+                            <%= participante.id == inscricao.participante_id ? 'selected' : '' %>>
+                            <%= participante.nome %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="evento_id">Evento</label>
+                <select id="evento_id" name="evento_id" required>
+                    <% eventos.forEach(evento => { %>
+                        <option value="<%= evento.id %>"
+                            <%= evento.id == inscricao.evento_id ? 'selected' : '' %>>
+                            <%= evento.titulo %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pendente" <%= inscricao.status == 'pendente' ? 'selected' : '' %>>Pendente</option>
+                    <option value="confirmada" <%= inscricao.status == 'confirmada' ? 'selected' : '' %>>Confirmada</option>
+                    <option value="cancelada" <%= inscricao.status == 'cancelada' ? 'selected' : '' %>>Cancelada</option>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="presente">Presente</label>
+                <select id="presente" name="presente">
+                    <option value="false" <%= !inscricao.presente ? 'selected' : '' %>>Não</option>
+                    <option value="true" <%= inscricao.presente ? 'selected' : '' %>>Sim</option>
+                </select>
+            </div>
+
+            <div class="botoes-formulario">
+                <a class="btn btn-muted" href="/inscricoes">Cancelar</a>
+                <button type="submit" class="btn btn-primario">Atualizar</button>
+            </div>
+        </form>
+    </div>
+</main>
+<%- include('../includes/footer.ejs') %>

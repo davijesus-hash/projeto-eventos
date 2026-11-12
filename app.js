@@ -219,6 +219,10 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 })
 
+//Rotas Inscricao
+const inscricoesRoutes = require('./routes/inscricoesRoutes');
+app.use("/inscricoes", exigirLogin, inscricoesRoutes);
+
 // Execução do Servidor
 const porta = 3001;
 app.listen(porta, () => {

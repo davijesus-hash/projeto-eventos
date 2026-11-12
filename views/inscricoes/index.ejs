@@ -1,0 +1,114 @@
+<%- include('../includes/header', { titulo: 'Inscrições' , usuario }) %>
+<main class="conteudo">
+  <div class="cabecalho-conteudo">
+    <div>
+      <h1>Inscrições</h1>
+      <p>Gerencie as inscrições nos eventos.</p>
+    </div>
+    <a class="btn btn-primario" href="/inscricoes/novo">+ Nova inscrição</a>
+  </div>
+
+  <!-- Pesquisa e ordenação -->
+  <form method="GET" action="/inscricoes" class="barra-filtros">
+
+    <input type="text" name="busca" class="campo-pesquisa" placeholder="Pesquisar registros" value="<%= busca %>">
+
+    <select name="ordem" class="campo-ordenacao">
+      <option value="id" <%=ordem==='id' ? 'selected' : '' %>>ID crescente</option>
+      <option value="id_desc" <%=ordem==='id_desc' ? 'selected' : '' %>>ID decrescente</option>
+      <option value="participante" <%=ordem==='participante' ? 'selected' : '' %>>Participante A-Z</option>
+      <option value="evento" <%=ordem==='evento' ? 'selected' : '' %>>Evento A-Z</option>
+      <option value="status" <%=ordem==='status' ? 'selected' : '' %>>Status A-Z</option>
+    </select>
+
+    <button type="submit" class="btn btn-primario">
+      Pesquisar
+    </button>
+
+    <a href="/inscricoes" class="btn btn-muted">
+      Limpar
+    </a>
+
+  </form>
+
+  <!-- TOTAL DE REGISTROS -->
+
+  <p class="total-registros">
+    Total encontrado: <strong>
+      <%= totalRegistros %>
+    </strong>
+  </p>
+
+  <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Participante</th>
+          <th>Evento</th>
+          <th>Status</th>
+          <th>Presente</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% inscricoes.forEach(inscricao=> { %>
+        <tr>
+          <td><strong>
+              <%= inscricao.participante %>
+            </strong></td>
+          <td>
+            <%= inscricao.evento %>
+          </td>
+          <td>
+            <%= inscricao.status %>
+          </td>
+          <td>
+            <%= inscricao.presente ? 'Sim' : 'Não' %>
+          </td>
+          <td class="acoes">
+            <a class="btn btn-sucesso btn-sm" href="/inscricoes/editar/<%= inscricao.id %>">Editar</a>
+            <form action="/inscricoes/excluir/<%= inscricao.id %>" method="POST" onsubmit="return confirm('Deseja realmente excluir esta inscrição?')">
+              <button class="btn btn-danger btn-sm" type="submit">Deletar</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+        <% if (inscricoes.length===0) { %>
+        <tr>
+          <td colspan="5">Nenhuma inscrição cadastrada.</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <!-- Paginação com preservação dos filtros -->
+
+  <!-- PAGINAÇÃO -->
+
+  <div class="paginacao">
+
+    <% if (pagina> 1) { %>
+    <a class="btn btn-secundario" href="/inscricoes?busca=<%= encodeURIComponent(busca) %>&ordem=<%= ordem %>&pagina=<%= pagina - 1 %>">
+      Anterior
+    </a>
+    <% } %>
+
+    <span class="paginacao-info">
+      Página <strong>
+        <%= pagina %>
+      </strong>
+      de <strong>
+        <%= totalPaginas %>
+      </strong>
+    </span>
+
+    <% if (pagina < totalPaginas) { %>
+    <a class="btn btn-secundario" href="/inscricoes?busca=<%= encodeURIComponent(busca) %>&ordem=<%= ordem %>&pagina=<%= pagina + 1 %>">
+      Próxima
+    </a>
+    <% } %>
+
+  </div>
+
+</main>
+<%- include('../includes/footer.ejs') %>

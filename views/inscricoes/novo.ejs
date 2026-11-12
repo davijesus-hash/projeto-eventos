@@ -1,0 +1,56 @@
+<%- include('../includes/header', { titulo: 'Nova Inscrição', usuario }) %>
+<main class="conteudo">
+    <div class="cabecalho-conteudo">
+        <div>
+            <h1>Nova Inscrição</h1>
+            <p>Vincule um participante a um evento.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <form action="/inscricoes/novo" method="POST">
+            <div class="campo-formulario">
+                <label for="participante_id">Participante</label>
+                <select id="participante_id" name="participante_id" required>
+                    <option value="">Selecione</option>
+                    <% participantes.forEach(participante => { %>
+                        <option value="<%= participante.id %>"><%= participante.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="evento_id">Evento</label>
+                <select id="evento_id" name="evento_id" required>
+                    <option value="">Selecione</option>
+                    <% eventos.forEach(evento => { %>
+                        <option value="<%= evento.id %>"><%= evento.titulo %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pendente">Pendente</option>
+                    <option value="confirmada">Confirmada</option>
+                    <option value="cancelada">Cancelada</option>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="presente">Presente</label>
+                <select id="presente" name="presente">
+                    <option value="false">Não</option>
+                    <option value="true">Sim</option>
+                </select>
+            </div>
+
+            <div class="botoes-formulario">
+                <a class="btn btn-muted" href="/inscricoes">Cancelar</a>
+                <button type="submit" class="btn btn-primario">Salvar</button>
+            </div>
+        </form>
+    </div>
+</main>
+<%- include('../includes/footer.ejs') %>
