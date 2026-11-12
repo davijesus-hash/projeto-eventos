@@ -1,70 +1,77 @@
-<%-include('includes/header', {
-    titulo:"Painel Administrativo",
+<%- include('includes/header', {
+    titulo: "Painel Administrativo",
     usuario
 }) %>
 
+<main class="conteudo">
+    <div class="cabecalho-conteudo">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Usuário: <strong><%= usuario.nome %></strong></p>
+        </div>
+    </div>
 
-<h1>Dashboard</h1>
-<p>
-    Usuário:
-    <strong>
-        <%= usuario.nome %>
-    </strong>
-</p>
-<a href="/admin">Voltar</a>
-<hr>
-<h2>Indicadores</h2>
-<p>Eventos: <strong>
-        <%=totalEventos %>
-    </strong></p>
-<p>Participantes:
-    <strong>
-        <%=totalParticipantes%>
-    </strong>
-</p>
-<p>Inscrições:
-    <strong>
-        <%=totalInscricoes%>
-    </strong>
-</p>
-<p>Usuários Ativos:
-    <strong>
-        <%=usuariosAtivos%>
-    </strong>
-</p>
-<h2>Próximos Eventos</h2>
-<table border="1">
-    <tr>
-        <th>Eventos</th>
-        <th>Data</th>
-        <th>Horário</th>
-        <th>Local</th>
-    </tr>
-    <% proximosEventos.forEach(evento=> {%>
-        <tr>
-            <td>
-                <%=evento.titulo%>
-            </td>
-            <td>
-                <%=evento.data_evento%>
-            </td>
-            <td>
-                <%=evento.horario%>
-            </td>
-            <td>
-                <%=evento.local%>
-            </td>
-        </tr>
-        <% })%>
-</table>
-<h2>Eventos com mais Inscrições</h2>
-<ol>
-    <% eventosMaisInscricoes.forEach(evento=> {%>
-        <li>
-            <%=evento.titulo%>
-            <%=evento.total%>
-        </li>
-        <%})%>
-</ol>
+    <section class="dashboard-secao">
+        <h2>Indicadores</h2>
+        <div class="grid-indicadores">
+            <div class="card-indicador">
+                <span>Eventos</span>
+                <strong><%= totalEventos %></strong>
+            </div>
+            <div class="card-indicador">
+                <span>Participantes</span>
+                <strong><%= totalParticipantes %></strong>
+            </div>
+            <div class="card-indicador">
+                <span>Inscrições</span>
+                <strong><%= totalInscricoes %></strong>
+            </div>
+            <div class="card-indicador">
+                <span>Usuários Ativos</span>
+                <strong><%= usuariosAtivos %></strong>
+            </div>
+        </div>
+    </section>
 
-<%- include('includes/footer')%>
+    <section class="dashboard-secao">
+        <h2>Próximos Eventos</h2>
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Eventos</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Local</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% proximosEventos.forEach(evento => { %>
+                        <tr>
+                            <td><strong><%= evento.titulo %></strong></td>
+                            <td><%= evento.data_evento.toLocaleDateString('pt-BR') %>
+                            <td><%= evento.horario %></td>
+                            <td><%= evento.local %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="dashboard-secao">
+        <h2>Eventos com mais Inscrições</h2>
+        <div class="card">
+            <ol class="ranking-lista">
+                <% eventosMaisInscricoes.forEach(evento => { %>
+                    <li>
+                        <span class="ranking-titulo"><%= evento.titulo %></span>
+                        <span class="ranking-badge"><%= evento.total %> inscrições</span>
+                    </li>
+                <% }) %>
+            </ol>
+        </div>
+    </section>
+</main>
+
+<%- include('includes/footer') %>

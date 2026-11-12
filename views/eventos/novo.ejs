@@ -1,0 +1,79 @@
+<%- include('../includes/header', { titulo: "Cadastrar Categorias" , usuario }) %>
+    <main class="conteudo">
+        <div class="cabecalho-conteudo">
+            <div>
+                <h1>Cadastrar Eventos</h1>
+                <p>Cadastrar Eventos</p>
+            </div>
+        </div>
+        <div class="card">
+            <form action="/eventos/novo" method="POST">
+                <div class="campo-formulario">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" id="titulo" name="titulo" required maxlength="150" minlength="3"
+                        placeholder="Digite o nome">
+                </div>
+                <div class="campo-formulario" style="margin-top:16px">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" placeholder="Descrição do evento"
+                        maxlength="255"></textarea>
+                </div>
+                <div class="linha-formulario" style="margin-top:16px">
+                    <div class="campo-formulario">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" name="data_evento" required placeholder="Digite a data">
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="horario">Horario</label>
+                        <input type="time" id="horario" name="horario" required placeholder="Digite o horario">
+                    </div>
+                </div>
+                <div class="linha-formulario" style="margin-top:16px">
+                    <div class="campo-formulario">
+                        <label for="local">Local</label>
+                        <input type="text" id="data" name="local" required placeholder="Digite o local">
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="quantidade_vagas">Quantidade de vagas</label>
+                        <input type="number" id="quantidade_vagas" name="quantidade_vagas" required
+                            placeholder="Digite a quantidade de vagas">
+                    </div>
+                </div>
+                <div class="campo-formulario" style="margin-top:16px">
+                    <label for="url">URL Imagem</label>
+                    <input type="text" id="imagem_url" name="imagem_url" required placeholder="Digite o nome da imagem">
+                </div>
+                <div class="linha-formulario" style="margin-top:16px">
+                    <div class="campo-formulario">
+                        <label for="local">Categoria</label>
+                        <select name="categoria_id" id="categoria">
+                            <% categorias.forEach( c=> {%>
+                                <option value="<%=c.id%>">
+                                    <%=c.nome%>
+                                </option>
+                                <%})%>
+                        </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="local">Organizador</label>
+                        <select name="organizador_id" id="organizador">
+                            <% usuarios.forEach( u=> {%>
+                                <option value="<%=u.id%>">
+                                    <%=u.nome%>
+                                </option>
+                                <%})%>
+                        </select>
+                    </div>
+                </div>
+                <div class="botoes-formulario">
+                    <a class="btn btn-muted" href="/eventos">
+                        Cancelar
+                    </a>
+                    <button class="btn btn-primario" type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+    </main>
+    <%- include('../includes/footer') %>

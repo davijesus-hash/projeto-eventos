@@ -1,49 +1,60 @@
-<%-include('../includes/header', 
-    {titulo:"Categorias",usuario})
-%>
-<main class="conteudo">
-  <div class="cabecalho-conteudo">
-    <div>
-      <h1>Categorias</h1>
-      <p>Organize os eventos por tipo</p>
-    </div>
-    <a class="btn btn-primario" href="/categorias/novo">
-      + Nova categoria
-    </a>
-  </div>
-  <div class="tabela-container">
-    <table>
-      <thead>
-        <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Descrição</th>
-        <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% categorias.forEach(c => { %>
-        <tr>
-          <td><%= c.id %></td>
-          <td>
-            <strong><%= c.nome %></strong>
-          </td>
-          <td><%= c.descricao %></td>
-          <td class="acoes">
-            <form action="/categorias/excluir/<%= c.id %>" method="POST" onsubmit="return confirm('Deseja realmente excluir essa categoria?')">
-              <button type="submit" title="Excluir" class="btn btn-danger btn-sm">
-                Deletar
-              </button>
-            </form>
-
-            <a class="btn btn-sucesso btn-sm" href="/categorias/editar/<%= c.id %>">
-              Editar
+<%- include('../includes/header',{titulo:"Eventos", usuario}) %>
+    <main class="conteudo">
+        <div class="cabecalho-conteudo">
+            <div>
+                <h1>Eventos</h1>
+                <p>Organize os eventos.</p>
+            </div>
+            <a class="btn btn-primario" href="/eventos/novo">
+                + Novo Evento
             </a>
-          </td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  </div>
-</main>
-<%-include('../includes/footer')%>
+        </div>
+        <section class="lista-eventos">
+            <% eventos.forEach(evento=> { %>
+                <article class="card card-evento">
+                    <img src="/img/upload/<%= evento.imagem_url %>" alt="<%= evento.titulo %>">
+                    <div class="conteudo-card-evento">
+                        <div>
+                            <span class="categoria-evento">
+                                <%= evento.categoria %>
+                            </span>
+                        </div>
+                        <h3>
+                            <%= evento.titulo %>
+                        </h3>
+                        <p>
+                            <%= evento.descricao %>
+                        </p>
+                        <div class="informacoes-evento">
+                            <span>
+                                <strong>Data:</strong>
+                                <%= evento.data_evento.toLocaleDateString('pt-BR') %>
+                            </span>
+                            <span>
+                                <strong>Horário:</strong>
+                                <%= evento.horario.slice(0, 5) %>
+                            </span>
+                            <span>
+                                <strong>Local:</strong>
+                                <%= evento.local %>
+                            </span>
+                            <span>
+                                <strong>Vagas:</strong>
+                                <%= evento.quantidade_vagas %>
+                            </span>
+                            <span>
+                                <strong>Responsável:</strong>
+                                <%= evento.organizador %>
+                            </span>
+                        </div>
+                        <div class="acoes-evento">
+                            <a class="btn btn-sucesso btn-sm" href="/eventos/editar/<%= evento.id %>">
+                                Editar
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <% }) %>
+        </section>
+    </main>
+    <%- include('../includes/footer') %>
