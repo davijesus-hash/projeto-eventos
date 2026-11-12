@@ -1,10 +1,49 @@
-<h1>Lista de Eventos</h1>
-<a href="/admin">Voltar para Home</a>
+<%-include('../includes/header', 
+    {titulo:"Categorias",usuario})
+%>
+<main class="conteudo">
+  <div class="cabecalho-conteudo">
+    <div>
+      <h1>Categorias</h1>
+      <p>Organize os eventos por tipo</p>
+    </div>
+    <a class="btn btn-primario" href="/categorias/novo">
+      + Nova categoria
+    </a>
+  </div>
+  <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% categorias.forEach(c => { %>
+        <tr>
+          <td><%= c.id %></td>
+          <td>
+            <strong><%= c.nome %></strong>
+          </td>
+          <td><%= c.descricao %></td>
+          <td class="acoes">
+            <form action="/categorias/excluir/<%= c.id %>" method="POST" onsubmit="return confirm('Deseja realmente excluir essa categoria?')">
+              <button type="submit" title="Excluir" class="btn btn-danger btn-sm">
+                Deletar
+              </button>
+            </form>
 
-<ul>
-<% eventos.forEach(e => { %>
-<li>
-<strong><%= e.nome %></strong> - Data: <%= e.data %> | Local: <%= e.local %>
-</li>
-<% }) %>
-</ul>
+            <a class="btn btn-sucesso btn-sm" href="/categorias/editar/<%= c.id %>">
+              Editar
+            </a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</main>
+<%-include('../includes/footer')%>

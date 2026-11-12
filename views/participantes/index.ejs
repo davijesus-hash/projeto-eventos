@@ -1,10 +1,60 @@
-<h1>Lista de Participantes</h1>
-<a href="/admin">Voltar para Home</a>
+<%-include('../includes/header', 
+    {titulo:"Participantes",usuario})
+%>
+<main class="conteudo">
+  <div class="cabecalho-conteudo">
+    <div>
+      <h1>Participantes</h1>
+      <p>Organize os participantes do sistema</p>
+    </div>
+    <a class="btn btn-primario" href="/participantes/novo">
+      + Novo participante
+    </a>
+  </div>
+  <div class="tabela-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+          <th>Data de cadastro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% participantes.forEach(u => { %>
+        <tr>
+          <td>
+            <%= u.id %>
+          </td>
+          <td>
+            <strong> <%= u.nome %> </strong>
+          </td>
+          <td>
+            <%= u.email %>
+          </td>
+          <td>
+            <%= u.teleofne %>
+          </td>
+          <td>
+            <%= u.criado_em.toLocaleDateString('pt-BR') %>
+          </td>
+          <td class="acoes">
+            <form action="/participantes/excluir/<%= u.id %>" method="POST" onsubmit="return confirm('Deseja realmente excluir esse participante?')">
 
-<ul>
-<% participantes.forEach(p => { %>
-<li>
-<strong><%= p.nome %></strong> - Email: <%= p.email %> | Tel: <%= p.telefone %>
-</li>
-<% }) %>
-</ul>
+              <button type="submit" title="Excluir" class="btn btn-danger btn-sm">
+                Deletar
+              </button>
+            </form>
+            <a class="btn btn-sucesso btn-sm" href="/participantes/editar/<%= u.id %>">
+              Editar
+            </a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</main>
+<%-include('../includes/footer')%>

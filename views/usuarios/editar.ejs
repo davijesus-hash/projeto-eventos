@@ -1,0 +1,70 @@
+<%- include('../includes/header', { titulo: "Editar Usuário" , usuario }) %>
+    <main class="conteudo">
+        <div class="cabecalho-conteudo">
+            <div>
+                <h1>Editar um Usuário</h1>
+                <p>Edite usuário para organizar os eventos.</p>
+            </div>
+        </div>
+        <div class="card">
+            <form action="/usuarios/editar/<%=usuarioEditado.id%>" method="POST">
+                <div class="linha-formulario">
+                    <div class="campo-formulario">
+                        <label for="nome">Nome Completo</label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            placeholder="Digite o nome do usuário" 
+                            required
+                            maxlength="100" 
+                            minlength="2"
+                            value="<%=usuarioEditado.nome%>"
+                        >
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="situacao">Status</label>
+                        <select name="situacao" id="situacao">
+                            <option value="1" <%=usuarioEditado.situacao === 1 ?'selected' : ''%>>Ativo</option>
+                            <option value="0" <%=usuarioEditado.situacao === 0 ?'selected' : ''%>>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="linha-formulario" style="margin-top: 16px;">
+                    <div class="campo-formulario">
+                        <label for="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Digite o email do usuário" required
+                            maxlength="100" 
+                            minlength="2"
+                            value="<%=usuarioEditado.email%>"
+                        >
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="senha">Senha</label>
+                        <input 
+                            type="password" 
+                            id="senha" 
+                            name="senha" 
+                            placeholder="Digite a senha do usuário" required
+                            maxlength="100" 
+                            minlength="2"
+                            value="<%=usuarioEditado.senha%>"
+                        >
+                    </div>
+                </div>
+                <div class="botoes-formulario">
+                    <a class="btn btn-muted" href="/usuarios">
+                        Cancelar
+                    </a>
+                    <button class="btn btn-primario" type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <%- include('../includes/footer') %>
